@@ -1,0 +1,51 @@
+{
+  "benchmark": "synthetic-point-in-time-v1",
+  "dataset_type": "deterministic synthetic fixture; not a real-market backtest",
+  "cases_per_mode": 48,
+  "total_runs": 144,
+  "settlement_rate": 1.0,
+  "overall_accuracy": 0.6667,
+  "overall_brier_score": 0.2197,
+  "audit_completeness_rate": 1.0,
+  "point_in_time_evidence_checks": 576,
+  "point_in_time_violations": 0,
+  "memory_brier_improvement_vs_debate": 0.122,
+  "modes": [
+    {
+      "mode": "single",
+      "runs": 48,
+      "settled_predictions": 48,
+      "accuracy": 0.6667,
+      "brier_score": 0.228,
+      "calibration_gap": 0.0762,
+      "average_excess_return": -0.0033,
+      "audit_complete_runs": 48,
+      "evidence_checks": 192,
+      "point_in_time_violations": 0
+    },
+    {
+      "mode": "debate",
+      "runs": 48,
+      "settled_predictions": 48,
+      "accuracy": 0.6667,
+      "brier_score": 0.2295,
+      "calibration_gap": 0.0855,
+      "average_excess_return": -0.0033,
+      "audit_complete_runs": 48,
+      "evidence_checks": 192,
+      "point_in_time_violations": 0
+    },
+    {
+      "mode": "debate_memory",
+      "runs": 48,
+      "settled_predictions": 48,
+      "accuracy": 0.6667,
+      "brier_score": 0.2015,
+      "calibration_gap": 0.0625,
+      "average_excess_return": -0.0033,
+      "audit_complete_runs": 48,
+      "evidence_checks": 192,
+      "point_in_time_violations": 0
+    }
+  ]
+}
