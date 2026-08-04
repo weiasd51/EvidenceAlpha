@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   restore:
-    if: ${{ hashFiles('.bootstrap-manifest.tsv') != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
