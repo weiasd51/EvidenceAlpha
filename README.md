@@ -51,6 +51,21 @@ docker compose up --build
 ./scripts/start-frontend.ps1
 ```
 
+## 可复现评测
+
+项目提供确定性离线合成基准，用于验证研究、预测、结算、时点过滤和消融评测链路，
+不代表真实市场投资收益。
+
+```powershell
+python -m benchmarks.run_benchmark --write
+```
+
+- 4 只股票 × 4 个历史时点 × 3 个预测周期 × 3 种模式，共 144 次研究与结算。
+- 总体方向准确率 66.67%，总体 Brier Score 0.2197。
+- Debate+Memory Brier Score 为 0.2015，较 Debate 的 0.2295 改善 12.20%。
+- 576 条证据时点检查全部通过，未来证据违规 0 次。
+- 完整方法、限制与复现口径见 [评测说明](docs/EVALUATION.md)。
+
 ## API 示例
 
 ```bash

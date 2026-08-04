@@ -86,3 +86,34 @@ def test_historical_run_does_not_reuse_future_evidence(client):
     result = historical.json()
     assert len(result["evidence"]) == 4
     assert all(item["published_at"] <= result["as_of"] for item in result["evidence"])
+
+
+def test_memory_does_not_use_predictions_settled_after_research_time(client):
+    earlier = client.post(
+        "/api/v1/analyses",
+        json={
+            "symbol": "300750",
+            "query": "Create a historical prediction",
+            "horizon_days": 1,
+            "mode": "single",
+            "as_of": "2025-01-01T08:00:00Z",
+        },
+    ).json()
+    client.post(
+        f"/api/v1/predictions/{earlier['prediction']['id']}/settle",
+        json={"actual_return": -0.03, "benchmark_return": 0.01},
+    )
+
+    replay = client.post(
+        "/api/v1/analyses",
+        json={
+            "symbol": "600519",
+            "query": "Replay before the future settlement was available",
+            "horizon_days": 5,
+            "mode": "debate_memory",
+            "as_of": "2025-01-02T08:00:00Z",
+        },
+    ).json()
+
+    assert replay["signal"] == "bullish"
+    assert replay["confidence"] > 0.6

@@ -15,6 +15,11 @@ def _clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
 
+def _as_utc(value: datetime) -> datetime:
+    """Normalize SQLite's timezone-naive datetimes before PIT comparisons."""
+    return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+
+
 def add_trading_days(start: datetime, days: int) -> datetime:
     """Advance by weekdays; exchange holidays are a real-provider extension."""
     cursor = start
@@ -62,7 +67,12 @@ class ResearchWorkflow:
             memory_cases = list(
                 self.db.scalars(
                     select(Prediction)
-                    .where(Prediction.settled.is_(True))
+                    .where(
+                        Prediction.settled.is_(True),
+                        Prediction.settled_at <= as_of,
+                        Prediction.symbol == request.symbol.upper(),
+                        Prediction.horizon_days == request.horizon_days,
+                    )
                     .order_by(Prediction.settled_at.desc())
                     .limit(3)
                 ).all()
@@ -216,14 +226,16 @@ class ResearchWorkflow:
                 select(Evidence).where(Evidence.external_id == item["external_id"])
             )
             if existing:
-                if existing.published_at <= as_of:
+                if _as_utc(existing.published_at) <= _as_utc(as_of):
                     results.append(existing)
                 continue
             evidence = Evidence(symbol=symbol, **item)
             self.db.add(evidence)
             self.db.flush()
             results.append(evidence)
-        return [item for item in results if item.published_at <= as_of]
+        return [
+            item for item in results if _as_utc(item.published_at) <= _as_utc(as_of)
+        ]
 
 
 def settle_prediction(
