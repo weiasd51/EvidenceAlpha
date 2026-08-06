@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">EvidenceAlpha</title>
+  <desc id="desc">Evidence nodes converging into an alpha signal</desc>
+  <defs>
+    <linearGradient id="bg" x1="16" y1="8" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#103d34"/>
+      <stop offset="1" stop-color="#061d19"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="38" y1="88" x2="105" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#74c69d"/>
+      <stop offset="1" stop-color="#c7f43b"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <path d="M24 34h18M24 52h18M24 70h18" stroke="#f4f0df" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="48" cy="34" r="5" fill="#f4f0df"/>
+  <circle cx="48" cy="52" r="5" fill="#f4f0df"/>
+  <circle cx="48" cy="70" r="5" fill="#f4f0df"/>
+  <path d="M53 34 67 47M53 52h14M53 70l14-13" stroke="#9bd64a" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="71" cy="52" r="7" fill="#c7f43b"/>
+  <path d="M72 91c8-19 13-34 19-45 4-8 8-12 13-12 5 0 7 4 7 9 0 11-9 22-22 22-7 0-12-3-12-9 0-8 8-16 18-16 8 0 13 4 13 11 0 12-13 25-29 25-5 0-10-1-14-4" fill="none" stroke="url(#signal)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 98h80" stroke="#f4f0df" stroke-opacity=".25" stroke-width="3" stroke-linecap="round"/>
+</svg>
